@@ -91,10 +91,8 @@ async function runCLI() {
   await pool.end();
 };
 
-try {
-  runCLI();
-}
-catch (error) {
-  console.error('Error executing query', err.stack);
-  pool.end();
-}
+runCLI()
+  .catch((error) => {
+    console.error('Error executing query', error.stack);
+    return pool.end();
+  });
